@@ -15,7 +15,11 @@ class Autor:
         try:
             self.__cursor.execute(consulta)
             for dat in self.__cursor:
-                res = int(dat)+1
+                if res is None :
+                    res=1
+                else:
+                    res = int(dat)+1
+            print(res)
             return res
         except self.__connect.Error as error:
             print("Error: ", error)
@@ -26,6 +30,7 @@ class Autor:
                         'VALUES(:P1,UPPER(:P2),UPPER(:P3),:P4,:P5)')
         try:
             id=self.ultimoId()
+            print(id)
             self.__cursor.execute(consultaAlta, (id, nom, ape,res,foto))
             r = self.__cursor.rowcount
             if r > 0:

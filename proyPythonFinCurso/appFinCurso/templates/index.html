@@ -1,10 +1,77 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Título</title>
+    <title>Biblioteca</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/estilo1.css'%}">
 </head>
 <body>
+    <script src="{% static 'AJAX/jquery-3.2.1.min.js'%}" type="text/javascript"></script>
+    <header>
+        <div> <h1>BIBLIOTECA</h1></div>
+    </header>
+    <nav>
+        <menu class="navbar">
+            <a href="inicio">Home</a>
+            <div class="dropdown">
+                  <button class="dropbtn" >Alta
+                      <i class="fa fa-caret-down"></i>
+                  </button>
+                  <div class="dropdown-content">
+                      <a href="#" >Libro</a>
+                      <a href="#" onclick="verFAltaAutor()">Autor</a>
+                      <a href="#" >Genero</a>
+                     <a href="#" >Cliente</a>
+                  </div>
+            </div>
+             <div class="dropdown">
+                  <button class="dropbtn" >Listado
+                      <i class="fa fa-caret-down"></i>
+                  </button>
+                  <div class="dropdown-content">
+                      <a href="#" >Libro</a>
+                      <a href="#" >Autor</a>
+                      <a href="#" >Genero</a>
+                     <a href="#" >Cliente</a>
+                  </div>
+            </div>
+             <div class="dropdown">
+                  <button class="dropbtn" >Busqueda libro por:
+                      <i class="fa fa-caret-down"></i>
+                  </button>
+                  <div class="dropdown-content">
+                      <a href="#" >Autor</a>
+                      <a href="#" >Genero</a>
+                  </div>
+            </div>
+            <div class="dropdown">
+                  <button class="dropbtn" >Busqueda Cliente por:
+                      <i class="fa fa-caret-down"></i>
+                  </button>
+                  <div class="dropdown-content">
+                      <a href="#" >DNI</a>
+                      <a href="#" >Nombre</a>
+                  </div>
+            </div>
+        </menu>
+    </nav>
+    <section id="cuerpo" >
+    </section>
+    <script>
+        function verFAltaAutor(){
+            $.ajax({
+                type: "GET",
+                url: "viewAltaAutorF",
+                data:"",
+                success:
+                    function(msg){
+                        $("#cuerpo").html(msg);
+                    }
+ 	        });
+        }
+
+    </script>
 
 </body>
 </html>
