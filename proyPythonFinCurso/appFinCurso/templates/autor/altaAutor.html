@@ -1,10 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Alta Autor</title>
 </head>
 <body>
-$END$
+    <form method="post" action="altaAutorRes">
+         {% csrf_token %}
+        <div>
+            <label for="nombre">NOMBRE:</label>
+             <input type="text" name="nombre" id="nombre">
+        </div>
+        <div>
+            <label for="apellidos">APELLIDOS:</label>
+             <input type="text" name="apellidos" id="apellidos">
+        </div>
+        <div>
+            <label for="resumen">RESEÑA:</label>
+             <input type="text" name="resumen" id="resumen">
+        </div>
+        <div>
+            <label for="foto">FOTO:</label>
+             <input type="text" name="foto" id="foto">
+        </div>
+        <input type="submit" id="enviar">
+    </form>
+    <div id="resultado" style="display: none">
+        {%if respuesta%}
+            <p>{{respuesta}}</p>
+        {%endif%}
+    </div>
+
 </body>
 </html>
