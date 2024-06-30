@@ -30,10 +30,10 @@
                       <i class="fa fa-caret-down"></i>
                   </button>
                   <div class="dropdown-content">
-                      <a href="#" >Libro</a>
-                      <a href="#" >Autor</a>
-                      <a href="#" >Genero</a>
-                     <a href="#" >Cliente</a>
+                      <a href="#" onclick="verAutores()">Libros</a>
+                      <a href="#" >Autores</a>
+                      <a href="#" >Generos</a>
+                     <a href="#" >Clientes</a>
                   </div>
             </div>
              <div class="dropdown">
@@ -57,6 +57,11 @@
         </menu>
     </nav>
     <section id="cuerpo" >
+        <div id="resultado" style="display: none">
+            {%if mensaje%}
+                <p>{{mensaje}}</p>
+            {%endif%}
+        </div>
     </section>
     <script>
         function verFAltaAutor(){
@@ -70,6 +75,16 @@
                     }
  	        });
         }
+        function verAutores(){
+            $.ajax({
+                type: "GET",
+                url: "viewAutores",
+                data:"",
+                success:
+                    function(msg){
+                        $("#cuerpo").html(msg);
+                    }
+ 	        });
 
     </script>
 

@@ -8,28 +8,32 @@
     <form method="post" action="altaAutorRes">
          {% csrf_token %}
         <div>
-            <label for="nombre">NOMBRE:</label>
-             <input type="text" name="nombre" id="nombre">
-        </div>
-        <div>
+            <label for="nombre" >NOMBRE:</label>
+             <input type="text" name="nombre" id="nombre" size="50">
+
             <label for="apellidos">APELLIDOS:</label>
-             <input type="text" name="apellidos" id="apellidos">
+             <input type="text" name="apellidos" id="apellidos" size="150">
         </div>
-        <div>
-            <label for="resumen">RESEÑA:</label>
-             <input type="text" name="resumen" id="resumen">
-        </div>
+        <br>
         <div>
             <label for="foto">FOTO:</label>
-             <input type="text" name="foto" id="foto">
+            <input type="file" name="foto" id="foto" size="50">
         </div>
+        <br>
+        <div>
+            <label for="resumen">RESEÑA:</label>
+        </div>
+        <div>
+            <textarea type="text" name="resumen" id="resumen" style="width:600px; height:200px;" size="300"></textarea>
+        </div>
+        <br>
         <input type="submit" id="enviar">
     </form>
-    <div id="resultado" style="display: none">
+     <div id="resultado" >
         {%if respuesta%}
             <p>{{respuesta}}</p>
         {%endif%}
-    </div>
+     </div>
 
 </body>
 </html>

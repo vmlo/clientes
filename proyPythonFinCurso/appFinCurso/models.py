@@ -14,17 +14,20 @@ class Autor:
         consulta = "SELECT MAX(ID) from PRO_AUTOR"
         try:
             self.__cursor.execute(consulta)
+            res = 0
             for dat in self.__cursor:
-                if res is None :
-                    res=1
+                print(dat)
+                if dat is None or dat < 1:
+                    res = 1
                 else:
-                    res = int(dat)+1
+                    res = int(dat) + 1
             print(res)
             return res
         except self.__connect.Error as error:
             print("Error: ", error)
 
     def insautor(self,nom,ape,res,foto):
+        id = int(self.ultimoId())
         r = 0
         consultaAlta = ('INSERT INTO PRO_AUTOR(ID,NOMBRE,APELLIDOS,RESUMEN,FOTO) '
                         'VALUES(:P1,UPPER(:P2),UPPER(:P3),:P4,:P5)')

@@ -14,18 +14,36 @@ def altaAutorRes(request):
     resum = request.POST['resumen']
     foto = request.POST['foto']
     if resum is None:
-        resum=""
+        resum="Null"
     if foto is None:
-        foto=""
+        foto="Null"
     try:
         autor=Autor()
-        res=autor.insautor(nom,ape,resum,foto)
+        nd=autor.insautor(nom,ape,resum,foto)
+        if nd>0:
+            res="Autor dado de alta correctamente"
+        else:
+            res = "Error: el Autor no ha podido darse de alta"
         context={
-            'res':res
+            'mensaje':res
         }
-        return render(request,'autor/altaAutor.html',context)
+        return render(request,'index.html',context)
     except Exception as err:
         contexto = {
             'mensaje': err
         }
-        return render(request, "autor/altaAutor.html", contexto)
+        return render(request, "index.html", contexto)
+
+def autores(request):
+    try:
+        autor=Autor()
+        datos=autor.autores()
+        context = {
+            'resultado': datos
+        }
+        return render(request,'autor/autores.html',context)
+    except Exception as err:
+        contexto = {
+            'mensaje': err
+        }
+        return render(request, "autor/autores.html", contexto)
