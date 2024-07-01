@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Libros</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>PORTADA</th>
+            <th>TITULO</th>
+            <th>COLECCION</th>
+            <th>NUM COLECCION</th>
+            <th>GENERO</th>
+            <th>AUTORES</th>
+            <th>ACCIONES</th>
+        </tr>
+        {%for id,tit,col,num,port,autores,generos in resultado%}
+            <tr>
+                <td><img src="imagenes/{{port}}"></td>
+                <td>{{tit}}</td>
+                <td>{{col}}</td>
+                <td>{{num}}</td>
+                {%for id,nom,ape in autores%}
+                     <td>
+                         <p>
+                            <a href="#"> {{ape}}, {{nom}}</a><br>
+                         </p>
+                     </td>
+                {%endfor%}
+                {%for id,nom in generos%}
+                <td>
+                    <p>
+                        <a href="#">{{nom}}</a><br>
+                    </p>
+                </td>
+                {%endfor%}
+                <td>
+                    <a href="#?id={{id}}" name="verdetalleL" id="verdetalleL">VER</a><br>
+                    <a href="#?id={{id}}" name="modificarL" id="modificarL">MODIFICAR</a><br>
+                    <a href="#?id={{id}}" name="eliminarL" id="eliminarL">ELIMINAR</a>
+                </td>
+            </tr>
+        {%endfor%}
+    </table>
+</body>
+</html>
