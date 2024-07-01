@@ -25,18 +25,18 @@
                      <a href="#" >Cliente</a>
                   </div>
             </div>
-             <div class="dropdown">
+            <div class="dropdown">
                   <button class="dropbtn" >Listado
                       <i class="fa fa-caret-down"></i>
                   </button>
                   <div class="dropdown-content">
                       <a href="#" >Libros</a>
                       <a href="#" onclick="verAutores()">Autores</a>
-                      <a href="#" >Generos</a>
+                      <a href="#" onclick="viewTipos()">Géneros</a>
                      <a href="#" >Clientes</a>
                   </div>
             </div>
-             <div class="dropdown">
+            <div class="dropdown">
                   <button class="dropbtn" >Busqueda libro por:
                       <i class="fa fa-caret-down"></i>
                   </button>
@@ -80,6 +80,19 @@
             $.ajax({
                 type: "GET",
                 url: "viewAutores",
+                data:"",
+                success:
+                    function(msg){
+                        $("#cuerpo").html(msg);
+                    }
+
+ 	        });
+        }
+
+        function viewTipos(){
+            $.ajax({
+                type: "GET",
+                url: "viewTipos",
                 data:"",
                 success:
                     function(msg){

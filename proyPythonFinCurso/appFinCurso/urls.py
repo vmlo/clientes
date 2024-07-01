@@ -1,5 +1,4 @@
 from django.urls import path
-
 from appFinCurso import views
 
 urlpatterns=[
@@ -11,5 +10,6 @@ urlpatterns=[
     path('viewAutor', views.autor, name='Autor'),
     path('borrAutor', views.delAutor, name='borrAutor'),
     path('viewModAutor', views.modAutorF, name='viewModAutor'),
-    path('modAutorRes', views.modAutor, name='modAutorRes')
+    path('modAutorRes', views.modAutor, name='modAutorRes'),
+    path('viewTipos', views.listaMaestroTipos,name='maestroDeTipos')
 ]

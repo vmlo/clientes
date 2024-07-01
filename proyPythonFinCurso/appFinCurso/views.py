@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from appFinCurso.models import Autor
+from appFinCurso.models import DatosTipo
+
 
 
 def inicio(request):
@@ -123,3 +125,9 @@ def modAutor(request):
             'mensaje': err
         }
         return render(request, "index.html", contexto)
+
+def listaMaestroTipos(request):
+    objDatosTipo = DatosTipo()
+    cursor = objDatosTipo.listaDeTipos()
+    diccionario = {'lista_tipos': cursor}
+    return render(request, "tipo/listamaestrotipos.html", diccionario)

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista del maestro de Tipos</title>
+</head>
+<body>
+<h1 style="color:blue;">Lista maestro Tipos</h1>
+ <table border="1" style="width:100%">
+    <tr>
+       <th>Id Tipo</th>
+       <th>Tipo</th>
+    </tr>
+ {% for eachId, eachTipo in lista_tipos %}
+     <tr>
+        <td>{{eachId}}</td>
+        <td>{{eachTipo}}</td>
+     </tr>
+ {% endfor%}
+ </table>
+</body>
+</html>
