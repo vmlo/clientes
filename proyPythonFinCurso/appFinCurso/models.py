@@ -84,6 +84,14 @@ class Autor:
         except self.__connect.Error as error:
             print("Error: ", error)
 
+    def autorByLibro(self,idlibro):
+        consulta = ("select a.id as idAutor, nombre, apellidos from pro_autor a inner join pro_autores au "
+                    "on au.idautor=a.id where au.idlibro=:P1")
+        try:
+            return self.__cursor.execute(consulta, (idlibro,))
+        except self.__connect.Error as error:
+            print("Error: ", error)
+"""Tipo"""
 class DatosTipo:
     def __init__(self):
         self.connection = cx_Oracle.connect("system", "pythonoracle", "localhost/XE")
@@ -96,3 +104,35 @@ class DatosTipo:
             print("Error: ", error)
         return cursor
 
+    def tipoByLibro(self,idlibro):
+        consulta = ("select t.id as idgenero,nombre as genero from pro_tipo t inner join pro_tipos ts "
+                    "on ts.idtipo=t.id where ts.idlibro=:P1")
+        try:
+            return self.__cursor.execute(consulta, (idlibro,))
+        except self.__connect.Error as error:
+            print("Error: ", error)
+"""Libros"""
+class Libro:
+    def __init__(self):
+        """Con la función connect nos conectamos a ORACLE, indicando el servidor, puerto, usuario, contraseña y
+               base de datos."""
+        self.__connect = cx_Oracle.connect("system", "pythonoracle", "localhost/XE")
+        """Creamos un cursor (tupla) para almacenar los datos devueltos por la consulta. El Método cursor() devuelve un 
+        objeto que permite ejecutar cualquier instrucción SQL"""
+        self.__cursor = self.__connect.cursor()
+
+    def libros(self):
+        consulta=('select l.id as idlibro, l.titulo,l.coleccion,l.numero as numColeccion,l.portada, from pro_libros l')
+        try:
+            return self.__cursor.execute(consulta)
+        except self.__connect.Error as error:
+            print("Error: ", error)
+
+
+    def librobyid(self, id):
+        consulta = ('select l.id as idlibro, l.titulo,l.coleccion,l.numero as numColeccion,l.isbn,l.resumen,l.portada,'
+                    'l.f_publicacion from pro_libros l where l.id=:P1')
+        try:
+            return self.__cursor.execute(consulta, (id,))
+        except self.__connect.Error as error:
+            print("Error: ", error)

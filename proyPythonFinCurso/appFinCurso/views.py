@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from appFinCurso.models import Autor
-
+from appFinCurso.models import Libro
+from appFinCurso.models import DatosTipo
 
 def inicio(request):
     return render(request,'index.html')
-
+"""Autores"""
 def altaAutorF(request):
     return render(request,'autor/altaAutor.html')
 
@@ -118,6 +119,36 @@ def modAutor(request):
            'mensaje': res
         }
         return render(request, "index.html",context)
+    except Exception as err:
+        contexto = {
+            'mensaje': err
+        }
+        return render(request, "index.html", contexto)
+
+    """Libros"""
+
+
+def sellibros(request):
+    try:
+        libro = Libro()
+        datoslibro = libro.libros()
+        for id,tit,col,num in datoslibro:
+            autor=Autor()
+            datosAutor=autor.autorByLibro(id)
+            genero=DatosTipo()
+            datosGen=genero.tipoByLibro(id)
+            datos={
+                'idlibro':id,
+                'titulo':tit,
+                'coleccion':col,
+                'numCol':num,
+                'autores':datosAutor,
+                'generos':datosGen
+            }
+        context = {
+            'resultado': datos
+        }
+        return render(request, 'libros/libros.html', context)
     except Exception as err:
         contexto = {
             'mensaje': err
