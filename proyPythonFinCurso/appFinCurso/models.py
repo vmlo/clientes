@@ -14,14 +14,19 @@ class Autor:
         consulta = "SELECT MAX(ID) from PRO_AUTOR"
         try:
             self.__cursor.execute(consulta)
+            print(self.__cursor)
+            idmax=0
             res = 0
-            for dat in self.__cursor:
-                print(dat)
-                if dat is None or dat < 1:
-                    res = 1
-                else:
-                    res = int(dat) + 1
-            print(res)
+            haydatos=self.__cursor.fetchall()
+            if len(haydatos) ==0:
+                res = 1
+            else:
+                print("res",res)
+                for id in haydatos:
+                    idmax = id[0]
+                    print("idmax", id)
+                res = int(idmax) + 1
+            print("2",res)
             return res
         except self.__connect.Error as error:
             print("Error: ", error)
@@ -33,7 +38,7 @@ class Autor:
                         'VALUES(:P1,UPPER(:P2),UPPER(:P3),:P4,:P5)')
         try:
             id=self.ultimoId()
-            print(id)
+            print("id:",id)
             self.__cursor.execute(consultaAlta, (id, nom, ape,res,foto))
             r = self.__cursor.rowcount
             if r > 0:
@@ -57,7 +62,7 @@ class Autor:
         r = 0
         consultaDel = 'DELETE FROM PRO_AUTOR WHERE ID=:P5'
         try:
-            self.__cursor.execute(consultaDel, (id))
+            self.__cursor.execute(consultaDel, (id,))
             r = self.__cursor.rowcount
             if r > 0:
                 self.__connect.commit()

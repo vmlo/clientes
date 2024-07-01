@@ -1,0 +1,149 @@
+[1mdiff --git a/.idea/ProyFinCurso.iml b/.idea/ProyFinCurso.iml[m
+[1mindex 53e5145..7cac396 100644[m
+[1m--- a/.idea/ProyFinCurso.iml[m
+[1m+++ b/.idea/ProyFinCurso.iml[m
+[36m@@ -2,10 +2,10 @@[m
+ <module type="PYTHON_MODULE" version="4">[m
+   <component name="NewModuleRootManager">[m
+     <content url="file://$MODULE_DIR$">[m
+[32m+[m[32m      <sourceFolder url="file://$MODULE_DIR$/.venv" isTestSource="false" />[m
+       <sourceFolder url="file://$MODULE_DIR$/proyPythonFinCurso" isTestSource="false" />[m
+[31m-      <excludeFolder url="file://$MODULE_DIR$/.venv" />[m
+     </content>[m
+[31m-    <orderEntry type="jdk" jdkName="Python 3.12 (DJangoPython)" jdkType="Python SDK" />[m
+[32m+[m[32m    <orderEntry type="jdk" jdkName="Python 3.12 (proyPythonFinCurso)" jdkType="Python SDK" />[m
+     <orderEntry type="sourceFolder" forTests="false" />[m
+   </component>[m
+ </module>[m
+\ No newline at end of file[m
+[1mdiff --git a/.idea/misc.xml b/.idea/misc.xml[m
+[1mindex c8ca793..3e93ea2 100644[m
+[1m--- a/.idea/misc.xml[m
+[1m+++ b/.idea/misc.xml[m
+[36m@@ -3,7 +3,7 @@[m
+   <component name="Black">[m
+     <option name="sdkName" value="Python 3.12 (ProyFinCurso)" />[m
+   </component>[m
+[31m-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (DJangoPython)" project-jdk-type="Python SDK" />[m
+[32m+[m[32m  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (proyPythonFinCurso)" project-jdk-type="Python SDK" />[m
+   <component name="PyCharmProfessionalAdvertiser">[m
+     <option name="shown" value="true" />[m
+   </component>[m
+[1mdiff --git a/proyPythonFinCurso/appFinCurso/__pycache__/models.cpython-312.pyc b/proyPythonFinCurso/appFinCurso/__pycache__/models.cpython-312.pyc[m
+[1mindex 87a5767..8ad4eb3 100644[m
+Binary files a/proyPythonFinCurso/appFinCurso/__pycache__/models.cpython-312.pyc and b/proyPythonFinCurso/appFinCurso/__pycache__/models.cpython-312.pyc differ
+[1mdiff --git a/proyPythonFinCurso/appFinCurso/__pycache__/urls.cpython-312.pyc b/proyPythonFinCurso/appFinCurso/__pycache__/urls.cpython-312.pyc[m
+[1mindex e906556..1ec4550 100644[m
+Binary files a/proyPythonFinCurso/appFinCurso/__pycache__/urls.cpython-312.pyc and b/proyPythonFinCurso/appFinCurso/__pycache__/urls.cpython-312.pyc differ
+[1mdiff --git a/proyPythonFinCurso/appFinCurso/__pycache__/views.cpython-312.pyc b/proyPythonFinCurso/appFinCurso/__pycache__/views.cpython-312.pyc[m
+[1mindex aab8ce4..0157af5 100644[m
+Binary files a/proyPythonFinCurso/appFinCurso/__pycache__/views.cpython-312.pyc and b/proyPythonFinCurso/appFinCurso/__pycache__/views.cpython-312.pyc differ
+[1mdiff --git a/proyPythonFinCurso/appFinCurso/models.py b/proyPythonFinCurso/appFinCurso/models.py[m
+[1mindex fa251b5..1af83ad 100644[m
+[1m--- a/proyPythonFinCurso/appFinCurso/models.py[m
+[1m+++ b/proyPythonFinCurso/appFinCurso/models.py[m
+[36m@@ -84,6 +84,14 @@[m [mclass Autor:[m
+         except self.__connect.Error as error:[m
+             print("Error: ", error)[m
+ [m
+[32m+[m[32m    def autorByLibro(self,idlibro):[m
+[32m+[m[32m        consulta = ("select a.id as idAutor, nombre, apellidos from pro_autor a inner join pro_autores au "[m
+[32m+[m[32m                    "on au.idautor=a.id where au.idlibro=:P1")[m
+[32m+[m[32m        try:[m
+[32m+[m[32m            return self.__cursor.execute(consulta, (idlibro,))[m
+[32m+[m[32m        except self.__connect.Error as error:[m
+[32m+[m[32m            print("Error: ", error)[m
+[32m+[m[32m"""Tipo"""[m
+ class DatosTipo:[m
+     def __init__(self):[m
+         self.connection = cx_Oracle.connect("system", "pythonoracle", "localhost/XE")[m
+[36m@@ -96,3 +104,35 @@[m [mclass DatosTipo:[m
+             print("Error: ", error)[m
+         return cursor[m
+ [m
+[32m+[m[32m    def tipoByLibro(self,idlibro):[m
+[32m+[m[32m        consulta = ("select t.id as idgenero,nombre as genero from pro_tipo t inner join pro_tipos ts "[m
+[32m+[m[32m                    "on ts.idtipo=t.id where ts.idlibro=:P1")[m
+[32m+[m[32m        try:[m
+[32m+[m[32m            return self.__cursor.execute(consulta, (idlibro,))[m
+[32m+[m[32m        except self.__connect.Error as error:[m
+[32m+[m[32m            print("Error: ", error)[m
+[32m+[m[32m"""Libros"""[m
+[32m+[m[32mclass Libro:[m
+[32m+[m[32m    def __init__(self):[m
+[32m+[m[32m        """Con la función connect nos conectamos a ORACLE, indicando el servidor, puerto, usuario, contraseña y[m
+[32m+[m[32m               base de datos."""[m
+[32m+[m[32m        self.__connect = cx_Oracle.connect("system", "pythonoracle", "localhost/XE")[m
+[32m+[m[32m        """Creamos un cursor (tupla) para almacenar los datos devueltos por la consulta. El Método cursor() devuelve un[m[41m [m
+[32m+[m[32m        objeto que permite ejecutar cualquier instrucción SQL"""[m
+[32m+[m[32m        self.__cursor = self.__connect.cursor()[m
+[32m+[m
+[32m+[m[32m    def libros(self):[m
+[32m+[m[32m        consulta=('select l.id as idlibro, l.titulo,l.coleccion,l.numero as numColeccion,l.portada, from pro_libros l')[m
+[32m+[m[32m        try:[m
+[32m+[m[32m            return self.__cursor.execute(consulta)[m
+[32m+[m[32m        except self.__connect.Error as error:[m
+[32m+[m[32m            print("Error: ", error)[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    def librobyid(self, id):[m
+[32m+[m[32m        consulta = ('select l.id as idlibro, l.titulo,l.coleccion,l.numero as numColeccion,l.isbn,l.resumen,l.portada,'[m
+[32m+[m[32m                    'l.f_publicacion from pro_libros l where l.id=:P1')[m
+[32m+[m[32m        try:[m
+[32m+[m[32m            return self.__cursor.execute(consulta, (id,))[m
+[32m+[m[32m        except self.__connect.Error as error:[m
+[32m+[m[32m            print("Error: ", error)[m
+\ No newline at end of file[m
+[1mdiff --git a/proyPythonFinCurso/appFinCurso/templates/index.html b/proyPythonFinCurso/appFinCurso/templates/index.html[m
+[1mindex 40f08a8..ee1cd2b 100644[m
+[1m--- a/proyPythonFinCurso/appFinCurso/templates/index.html[m
+[1m+++ b/proyPythonFinCurso/appFinCurso/templates/index.html[m
+[36m@@ -30,7 +30,7 @@[m
+                       <i class="fa fa-caret-down"></i>[m
+                   </button>[m
+                   <div class="dropdown-content">[m
+[31m-                      <a href="#" >Libros</a>[m
+[32m+[m[32m                      <a href="#" onclick="verLibros()">Libros</a>[m
+                       <a href="#" onclick="verAutores()">Autores</a>[m
+                       <a href="#" >Generos</a>[m
+                      <a href="#" >Clientes</a>[m
+[36m@@ -88,6 +88,18 @@[m
+ [m
+  	        });[m
+         }[m
+[32m+[m[32m        function verLibros(){[m
+[32m+[m[32m            $.ajax({[m
+[32m+[m[32m                type: "GET",[m
+[32m+[m[32m                url: "viewLibros",[m
+[32m+[m[32m                data:"",[m
+[32m+[m[32m                success:[m
+[32m+[m[32m                    function(msg){[m
+[32m+[m[32m                        $("#cuerpo").html(msg);[m
+[32m+[m[32m                    }[m
+[32m+[m
+[32m+[m[41m [m	[32m        });[m
+[32m+[m[32m        }[m
+     </script>[m
+ [m
+ </body>[m
+[1mdiff --git a/proyPythonFinCurso/appFinCurso/templates/libros/libros.html b/proyPythonFinCurso/appFinCurso/templates/libros/libros.html[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e67e791[m
+[1m--- /dev/null[m
+[1m+++ b/proyPythonFinCurso/appFinCurso/templates/libros/libros.html[m
+[36m@@ -0,0 +1,47 @@[m
+[32m+[m[32m<!DOCTYPE html>[m
+[32m+[m[32m<html lang="en">[m
+[32m+[m[32m<head>[m
+[32m+[m[32m    <meta charset="UTF-8">[m
+[32m+[m[32m    <title>Libros</title>[m
+[32m+[m[32m</head>[m
+[32m+[m[32m<body>[m
+[32m+[m[32m    <table>[m
+[32m+[m[32m        <tr>[m
+[32m+[m[32m            <th>PORTADA</th>[m
+[32m+[m[32m            <th>TITULO</th>[m
+[32m+[m[32m            <th>COLECCION</th>[m
+[32m+[m[32m            <th>NUM COLECCION</th>[m
+[32m+[m[32m            <th>GENERO</th>[m
+[32m+[m[32m            <th>A
