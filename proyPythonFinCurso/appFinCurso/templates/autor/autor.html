@@ -57,13 +57,21 @@
         </menu>
     </nav>
     <section id="cuerpo" >
+        {%for id,nom,ape,resum,foto in resultado%}
+            <img src="{{foto}}"></img>
+            <p>{{nom}}</p>
+            <p>{{ape}}</p>
+            <p>{{resum}}</p>
+        {%endfor%}
+        <a href="borrAutor?id={{id}}">Eliminar</a>
+        <a href="viewModAutor?id={{id}}">Modificar</a>
         <div id="resultado">
             {%if mensaje%}
                 <p>{{mensaje}}</p>
             {%endif%}
         </div>
     </section>
-    <script>
+     <script>
         function verFAltaAutor(){
             $.ajax({
                 type: "GET",
@@ -89,6 +97,5 @@
  	        });
         }
     </script>
-
 </body>
 </html>

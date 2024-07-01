@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Autores</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>FOTO</th>
+            <th>NOMBRE</th>
+            <th>APELLIDOS</th>
+            <th>ACCIONES</th>
+        </tr>
+        {%for id,nom,ape,resum,foto in resultado%}
+            <tr>
+                <td><img src="imagenes/{{foto}}"></td>
+                <td>{{nom}}</td>
+                <td>{{ape}}</td>
+                <td>
+                    <a href="viewAutor?id={{id}}" name="verdetalleA" id="verdetalleA">VER</a><br>
+                    <a href="viewModAutor?id={{id}}" name="modificarA" id="modificarA">MODIFICAR</a><br>
+                    <a href="borrAutor?id={{id}}" name="eliminarA" id="eliminarA">ELIMINAR</a>
+                </td>
+            </tr>
+        {%endfor%}
+    </table>
+</body>
+</html>

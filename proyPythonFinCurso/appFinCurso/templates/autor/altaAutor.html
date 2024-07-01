@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alta Autor</title>
+</head>
+<body>
+    <form method="post" action="altaAutorRes">
+         {% csrf_token %}
+        <div>
+            <label for="nombre" >NOMBRE:</label>
+             <input type="text" name="nombre" id="nombre" size="50">
+
+            <label for="apellidos">APELLIDOS:</label>
+             <input type="text" name="apellidos" id="apellidos" size="150">
+        </div>
+        <br>
+        <div>
+            <label for="foto">FOTO:</label>
+            <input type="file" name="foto" id="foto" size="50">
+        </div>
+        <br>
+        <div>
+            <label for="resumen">RESEÑA:</label>
+        </div>
+        <div>
+            <textarea type="text" name="resumen" id="resumen" style="width:600px; height:200px;" size="300"></textarea>
+        </div>
+        <br>
+        <input type="submit" id="enviar">
+    </form>
+     <div id="resultado" >
+        {%if respuesta%}
+            <p>{{respuesta}}</p>
+        {%endif%}
+     </div>
+
+</body>
+</html>
